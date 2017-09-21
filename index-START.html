@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+
+    // You might think we can just do something like this:
+    const newArr0 = players;
+    // however what happens when we update that array?
+    newArr0[0] = 'test';
+    // now here is the problem!
+    console.log(newArr0);
+    // oh no - we have edited the original array too!
+    console.log(players);
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+
+    // one way
+    const newArr1 = players.slice(0);
+    // or create a new array and concat the old one in
+    const newArr2 = [].concat(players);
+
+    // or use the new ES6 Spread
+    const newArr3 = [...players];
+    const newArr4 = Array.from(players);
+
+    // now when we update it, the original one isn't changed
+    newArr1[0] = newArr2[0] = newArr3[0] = newArr4[0] = 'no change'
+    console.log(players);
+    console.log(newArr1);
+    console.log(newArr2);
+    console.log(newArr3);
+    console.log(newArr4);
+    // The same thing goes for objects, let's say we have a person object
+    const person = {
+        age: 1, name: 'john'
+    }
+    // with Objects
+
+    // and think we make a copy:
+    // how do we take a copy instead?
+    const person1 = Object.assign({}, person, {age: 3});
+
+    console.log(person);
+    console.log(person1);
+    // We will hopefully soon see the object ...spread
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+  </script>
+
+</body>
+</html>
